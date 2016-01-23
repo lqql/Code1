@@ -1,0 +1,13 @@
+／／1——n中含1的个数
+public int NumberOf1Between1AndN_Solution(int n) {
+        if(n==0)
+           return 0;
+        if(n<=9)
+            return 1;
+        int i=9;
+        while(i*10+9<n)
+            i=i*10+9;
+        int cnt=n/(i+1);
+        return NumberOf1Between1AndN_Solution(i)*cnt+(cnt>1?(i+1):(n-i))+
+            NumberOf1Between1AndN_Solution(n-cnt*(i+1));
+    }

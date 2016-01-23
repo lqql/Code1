@@ -1,0 +1,35 @@
+／／按字典序排列
+import java.util.ArrayList;
+import java.util.Arrays;
+public class Solution {
+    public ArrayList<String> Permutation(String str) {
+        ArrayList<String> res = new ArrayList<String>();
+        if(str==null||str.length()==0)
+            return res;
+        char[] tmp = str.toCharArray();
+        Arrays.sort(tmp);
+        str = new String(tmp);
+        while (str != null) {
+            res.add(str);
+            str = nextPermutation(str);
+        }
+        return res;
+    }
+
+    String nextPermutation(String str) {
+        char[] cArr = str.toCharArray();
+        int i;
+        for (i = cArr.length - 1; i >= 1 && cArr[i] <= cArr[i -1]; i--);
+        if (i <= 0)
+            return null;
+        int pPos = i - 1;
+        int qPos = 0;
+        for (qPos = i; qPos < cArr.length && cArr[qPos] > cArr[pPos]; qPos++);
+        qPos--;
+        char tmp = cArr[pPos];
+        cArr[pPos] = cArr[qPos];
+        cArr[qPos] = tmp;
+        Arrays.sort(cArr,pPos+1, cArr.length);
+        return new String(cArr);
+    }
+}

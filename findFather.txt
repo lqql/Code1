@@ -1,0 +1,82 @@
+1.搜索二叉树
+public TreeNode findFather(TreeNode root,TreeNode node1,TreeNode node2){
+        if(node1==null||node2==null)
+            return null;
+        if(root.val>node1.val&&root.val>node2.val)
+            return findFather(root.left,node1,node2);
+        else if(root.val<node1.val&&root<node2.val)
+            return findFather(root.right,node1,node2);
+        else
+            return root;
+    }
+2.一般二叉树,有指向父节点的指针
+public TreeNode findFather(TreeNode root,TreeNode node1,TreeNode node2){
+        if(root==null||node1==null||node2==null)
+            return null;
+        TreeNode nodefirst=node1;
+        TreeNode nodesecond=node2;
+        int length1=getLength(nodefirst);
+        int length2=getLength(nodesecond);
+        int diff=length1>length2?(length1-length2):(length2-length1);
+        if(length1>length2){
+            for(int i=0;i<diff;i++)
+                node1=node1.parent;
+        }else if(length1<length2){
+            for(int i=0;i<diff;i++)
+                node2=node2.parent;
+        }
+        while(node1!=null&&node2!=null&&node1.parent!=null&&node2.parent!=null){
+            if(node1==node2)
+                return node1;
+            node1=node1.parent;
+            node2=node2.parent;
+        }
+        return null;
+    }
+    int getLength(TreeNode node){
+        int length=0;
+        while(node.parent!=null){
+            node=node.parent;
+            length++;
+        }
+        return length;
+    }
+3.普通树
+ public TreeNode findFather(TreeNode root,TreeNode node1,TreeNode node2){
+        if(root==null||node1==null||node2==null)
+            return null;
+        ArrayList<TreeNode> list1=new ArrayList<TreeNode>()
+        boolean findPath1=findPath(root,node1,list1);
+        ArrayList<TreeNode> list2=new ArrayList<TreeNode>()
+        boolean findPath2=findPath(root,node1,list2);
+        if(findPath2&&findPath2)
+            return lastCommonNode(list1,list2);
+        return null;         
+    }
+    boolean findPath(TreeNode root,TreeNode node,ArrayList<TreeNode> list){
+        if(root==node)
+            return true;
+        list.add(root);
+        ArrayList<TreeNode> child = root.child;
+        Iterator iterator= child.iterator();
+        boolean findpath=false;
+        while(!findPath&&iterator.hasNext()){
+            findpath=(iterator.next(),node);
+        }
+        if(!findpath)
+            list.remove(list.size()-1);
+        return findpath;
+        
+    }
+    TreeNode lastCommonNode(ArrayList<TreeNode> list1,ArrayList<TreeNode> list2){
+        Iterator iterator1=list1.iterator();
+        Iterator iterator2=list2.iterator();
+        int i=0;
+        while(iterator1.hasNext()&&iterator2.hasNext()){
+            if(iterator1.next!=iterator2.next)
+                break;
+            i++;
+        }
+        return list1.get(i);
+        
+    }

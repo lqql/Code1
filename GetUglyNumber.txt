@@ -1,0 +1,26 @@
+／／丑数
+public int GetUglyNumber_Solution(int index) {
+        if(index<=0)
+            return 0;
+        int multiply2=0;
+        int multiply3=0;
+        int multiply5=0;
+        int[] num=new int[index];
+        num[0]=1;
+        int next=1;
+        while(next<index){
+            int m = min(num[multiply2]*2,num[multiply3]*3,num[multiply5]*5);
+            num[next++] = m;
+            if (num[multiply2] * 2 == m)
+                multiply2++;
+            if (num[multiply3] * 3 == m)
+                multiply3++;
+            if (num[multiply5] * 5 == m)
+                multiply5++;
+        }
+        return num[index - 1];
+    }
+    int min(int a,int b,int c){
+		int m = a < b ? a : b;
+        return m < c ? m : c;
+    }

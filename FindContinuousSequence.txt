@@ -1,0 +1,33 @@
+和为S的连续正整数序列
+public ArrayList<ArrayList<Integer>> FindContinuousSequence(int sum) {
+        ArrayList<ArrayList<Integer>> res = new  ArrayList<ArrayList<Integer>>();
+        if(sum<3)
+           return res;
+        int first=1;
+        int second=2;
+        int mid=(1+sum)/2;
+        int cursum=first+second;
+        while(first<mid){
+            if(cursum==sum) {
+                res.add(ContinuousSequence(first,second));
+                cursum-=first;
+                first++;
+            }
+            else if(cursum>sum){
+                cursum-=first;
+                first++;
+            }else{
+                second++;
+                cursum+=second;        
+            }
+           
+        }
+        return res;
+    }
+    ArrayList<Integer> ContinuousSequence(int first,int second){
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for(int i=first;i<=second;i++){
+            list.add(i);
+        }
+        return list;
+    }

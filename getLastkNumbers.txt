@@ -1,0 +1,44 @@
+／／获得最小的K个数
+public ArrayList<Integer> GetLeastNumbers_Solution(int [] input, int k) {
+        ArrayList<Integer>list=new ArrayList<Integer>();
+        if(k<1||input.length<k||input==null)
+            return list;
+        int length=input.length;
+        int[] heap=new int[k+1];
+        for(int j=0;j<k;j++){
+            heap[j+1]=input[j];
+        }
+        maxHeap(heap,k);
+        for(int i=k;i<length;i++){
+            if(input[i]<heap[1]){
+                heap[1]=input[i];
+                maxHeapfy(heap,k,1);
+            }   
+        }
+        for(int i=1;i<k+1;i++){
+            list.add(heap[i]);
+        }
+        return list;
+        
+        
+    }
+    void maxHeapfy(int[] array,int heapsize,int index){
+        int left=2*index;
+        int right=2*index+1;
+        int max=index;
+        if(left<=heapsize&&array[left]>array[max])
+            max=left;
+        if(right<=heapsize&&array[right]>array[max])
+            max=right;
+        if(max!=index){
+            int temp=array[index];
+            array[index]=array[max];
+            array[max]=temp;
+            maxHeapfy(array,heapsize,max);
+        }
+     }
+    void maxHeap(int[] array, int k){
+        for(int i=k/2;i>=1;i--){
+           maxHeapfy(array,k,i); 
+        }
+     }
