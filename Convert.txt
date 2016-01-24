@@ -1,0 +1,24 @@
+//二叉搜索树与双向链表
+public TreeNode Convert(TreeNode pRootOfTree) {
+        if(pRootOfTree==null)
+            return null;
+        TreeNode lastNode=null;
+        ConverBST(pRootOfTree,lastNode);
+        TreeNode pHead=lastNode;
+        while(pHead!=null&&pHead.left!=null)
+            pHead=pHead.left;
+        return pHead;
+    }
+    void ConverBST(TreeNode pNode,TreeNode lastNode){
+        if(pNode==null)
+            return;
+        TreeNode currNode=pNode;
+        if(currNode.left!=null)
+            ConverBST(currNode.left,lastNode);
+        currNode.left=lastNode;
+        if(lastNode!=null)
+        	lastNode.right=currNode;
+        lastNode=currNode;
+        if(currNode.right!=null)
+            ConverBST(currNode.right,lastNode);
+        }

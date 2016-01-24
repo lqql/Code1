@@ -1,0 +1,33 @@
+数组中出现超过一半的数
+public int MoreThanHalfNum_Solution(int [] array) {
+        if(array==null||array.length==0)
+            return 0;
+        int times=1;
+        int result=array[0];
+        for(int i=1;i<array.length;i++){
+            if(times==0){
+                    result=array[i];
+                    times=1;
+                }
+            if(array[i]==result){ 
+                times++;
+                }
+            else
+              times--;
+        }
+        if(!CheckMoreThanHalf(array,result))
+            return 0;
+        return result;
+    }
+    boolean CheckMoreThanHalf(int[] array,int result){
+        if(array==null)
+            return false;
+        int times=0;
+        for(int i=0;i<array.length;i++){
+            if(array[i]==result)
+                times++;
+        }
+        if(times*2>array.length)
+            return true;
+        return false;
+    }

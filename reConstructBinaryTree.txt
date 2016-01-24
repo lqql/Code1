@@ -1,0 +1,22 @@
+//ÖØ½¨¶þ²æÊ÷
+public class Solution {
+    public TreeNode reConstructBinaryTree(int [] pre,int [] in) {
+        if(pre==null||in==null||pre.length==0||in.length==0)
+            	return null;
+        return ConstructBinaryTree(pre,in,0,pre.length-1,0,in.length-1);
+     }	
+    TreeNode ConstructBinaryTree(int[]pre,int[]in,int prestart,int preend,int instart,int inend){
+        if(prestart>preend||instart>inend)
+            return null;
+        TreeNode root=new TreeNode(pre[prestart]);       
+        int i=instart;
+        while(in[i]!=pre[prestart]&&i<=inend){
+            i++;
+        }
+        root.left=ConstructBinaryTree(pre,in,prestart+1,prestart+i-instart,instart,i-1);
+        root.right=ConstructBinaryTree(pre,in,prestart+i-instart+1,preend,i+1,inend);
+        return root;
+            
+        
+    }
+}

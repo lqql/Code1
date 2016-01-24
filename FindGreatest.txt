@@ -1,0 +1,14 @@
+//连续出现子数组的最大和
+ public int FindGreatestSumOfSubArray(int[] array) {
+        if(array==null||array.length==0)
+            return 0;
+        int maxsum=array[0];
+        for(int i=1;i<array.length;i++){
+            if(array[i-1]>0)
+                array[i]=array[i]+array[i-1];
+            if(array[i]>maxsum)
+                maxsum=array[i];
+                
+        }
+        return maxsum;
+    }

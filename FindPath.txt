@@ -1,0 +1,35 @@
+//确定某个路径的值
+
+public class Solution {
+    public ArrayList<ArrayList<Integer>> FindPath(TreeNode root,int target) {
+        ArrayList<ArrayList<Integer>> res=new ArrayList<ArrayList<Integer>>();
+        if(root==null)
+            return res;
+        findPath(root,target,res);
+        return res;
+        
+    }
+    private Stack<Integer> stack=new Stack<Integer>();
+    private int sum=0;
+    void findPath(TreeNode root,int target,ArrayList<ArrayList<Integer>> res){
+        if(root==null)
+            return;
+        
+        stack.push(root.val);
+        sum += root.val;
+        if(sum==target&&root.left==null&&root.right==null){
+            ArrayList<Integer> list = new ArrayList<Integer>();
+            for(Integer e:stack){
+            	list.add(e);
+        	}
+            res.add(list);
+         }
+        if(root.left!=null)
+            findPath(root.left,target,res);
+        if(root.right!=null)
+            findPath(root.right,target,res);
+        stack.pop();
+        sum -= root.val;
+    }
+    
+}
